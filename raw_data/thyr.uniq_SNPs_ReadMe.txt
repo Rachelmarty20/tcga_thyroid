@@ -1,0 +1,51 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red0\green44\blue226;}
+\margl1440\margr1440\vieww19080\viewh7760\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 awk -F"\\t" '\{if(($8~/thyroid/)&&($5!~/TCGA/)&&($21~/n/)&&($22~/CANCER/))print $1","$5","$8","$13","$14","$15","$16","$17","$19","$20","$21","$22","$23","$24","$25\}' CosmicMutantExport.tsv | awk -F"," '!_[$4]++'\
+\
+awk -F"\\t" '\{if(($8~/thyroid/)&&($5!~/TCGA/)&&($21~/y/)&&($22~/PASSENGER/))print $1","$5","$8","$13","$14","$15","$16","$17","$19","$20","$21","$22","$23","$24","$25\}' CosmicMutantExport.tsv | awk -F"," '!_[$4]++' \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+\cf0 #specify tab-sep file\
+#Find all lines that contain thyroid in primary site column, do not contain TCGA in sample ID column.  For cancer snps, find all lines that contain n in SNP column (meaning these are somatic mutations that have not showed up in other data sets) and contain CANCER in FATHMM column.  For neutral SNPs, find all lines that contain y in SNP column (meaning these are mutations that have showed up in 1001 genomes project, SNP db, or non-cancer samples from Sanger CGP sequencing) and contain PASSENGER in the FATHMM column.  \
+# !_[$4]++ means print only lines that are unique in field 4 (unique Cosmic IDs)\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+\cf0 #field definitions for all fields in CosmicMutantExport.tsv\
+\pard\pardeftab720\sa240\ql\qnatural
+
+\f1 \cf0 Gene name - The gene name for which the data has been curated in COSMIC. In most cases this is the accepted HGNC identifier.\
+Accession Number - The transcript identifier of the gene.\
+Gene CDS length- Length of the gene (base pair) counts.\
+HGNC id - if gene is in HGNC, this id helps linking it to HGNC.\
+Sample name, Sample id, Id tumour - A sample is an instance of a portion of a tumour being examined for mutations. The sample name can be derived from a number of sources. In many cases it originates from the cell line name. Other sources include names assigned by the annotators, or an incremented number assigned during an anonymisation process. A number of samples can be taken from a single tumour and a number of tumours can be obtained from one individual. A sample id is used to identify a sample within the COSMIC database. There can be multiple ids, if the same sample has been entered into the database multiple times from different papers.\
+Primary Site - The primary tissue/cancer from which the sample originated. More details on the tissue classification can be found {\field{\*\fldinst{HYPERLINK "http://cancer.sanger.ac.uk/cosmic/curation"}}{\fldrslt \cf2 \ul \ulc2 here}} In COSMIC we have standard set of classification system for tissue types and sub types because they vary a lot between different papers.\
+Site Subtype - Further sub classifications of the samples tissue of origin.\
+Primary Histology - The histological classification of the sample.\
+Histology Subtype - Further histological classifications of the sample.\
+Genome-wide screen - if the enitre genome/exome is sequenced.\
+Mutation Id - unique mutation identifier\
+Mutation CDS - The change that has occurred in the nucleotide sequence. Formatting is identical to the method used for the peptide sequence.\
+Mutation AA - The change that has occurred in the peptide sequence. Formatting is based on the recommendations made by the Human Genome Variation Society. The description of each type can be found by following the link to Mutation Overview page.\
+Mutation Description - Type of mutation (substitution, deletion, insertion, complex, fusion, unknown etc.)\
+Mutation zygosity - Information on whether the mutation was reported to be homozygous , heterozygous or unknown within the sample.\
+GRCh - The coordinate system used (37 = GRCh37/Hg19, 38 = GRCh38/Hg38)\
+Mutation genome position - The genomic cooridnates of the mutation.\
+Mutation strand - postive or negative.\
+SNP- All the known SNPs are flagged as 'y' defined by the 1000 genomes project, dbSNP and a panel of 378 normal (non-cancer) samples from Sanger CGP sequencing.\
+FATHMM prediction- FATHMM (Functional Analysis through Hidden Markov Models) descriptors -\
+\'a0\'a0 Pathogenic- if they are defined as Cancer or Damaging.\
+\'a0\'a0 Neutral- if they are defined as Passenger or Tolerated.\
+More information about FATHMM is available {\field{\*\fldinst{HYPERLINK "http://fathmm.biocompute.org.uk/"}}{\fldrslt \cf2 here
+\f0 \cf0 {{\NeXTGraphic blank.gif \width40 \height40 \noorient
+}¬}}}\
+Mutation somatic status - Information on whether the sample was reported to be Confirmed Somatic, Previously Reported or Variant of unknown origin.\
+\'a0\'a0 'Confirmed Somatic' - if the mutation has been confimed to be somatic in the experiment by sequencing both the tumour and a matched normal from the same patient.\
+\'a0\'a0 'Previously observed' - when the mutation has been reported as somatic previously but not in current paper.\
+\'a0\'a0 'variant of unknown origin' - when the mutation is known to be somatic but the tumour was sequenced without a matched normal.\
+Pubmed_PMID - The PUBMED ID for the paper that the sample was noted in, linking to pubmed to provide more details of the publication.\
+Id Study - Lists the unique Ids of studies that have involved this sample.\
+}
